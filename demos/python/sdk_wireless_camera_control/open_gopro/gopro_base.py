@@ -32,9 +32,9 @@ from open_gopro.responses import GoProResp
 
 logger = logging.getLogger(__name__)
 
-WRITE_TIMEOUT: Final = 5
-GET_TIMEOUT: Final = 5
-HTTP_GET_RETRIES: Final = 5
+WRITE_TIMEOUT: Final = 1
+GET_TIMEOUT: Final = 1
+HTTP_GET_RETRIES: Final = 1
 
 GoPro = TypeVar("GoPro", bound="GoProBase")
 ApiType = TypeVar("ApiType", WiredApi, WirelessApi)
