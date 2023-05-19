@@ -371,7 +371,7 @@ class GoProBase(ABC, Generic[ApiType]):
                 logger.critical(f"Unexpected error: {repr(e)}")
             else:
                 pass
-            logger.warning("Retrying to send the command...")
+            logger.debug("Retrying to send the command...")
         else:
             raise GpException.ResponseTimeout(HTTP_GET_RETRIES)
 
