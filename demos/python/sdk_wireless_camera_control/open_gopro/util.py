@@ -86,6 +86,11 @@ class Logger:
         http_client.HTTPConnection.debuglevel = 1
         http_client.print = lambda *args: logging.getLogger("http.client").debug(" ".join(args))  # type: ignore
 
+        # Enable / disable logging in modules
+        for module, level in self.modules.items():
+            l = logging.getLogger(module)
+            l.setLevel(level)
+
         self.file_handler: Optional[logging.Handler]
         if output:
             # Logging to file with millisecond timing
@@ -102,15 +107,15 @@ class Logger:
             self.file_handler = None
 
         # Use Rich for colorful console logging
-        self.stream_handler = RichHandler(rich_tracebacks=True, enable_link_path=True, show_time=False)
-        stream_formatter = logging.Formatter("%(asctime)s.%(msecs)03d %(message)s", datefmt="%H:%M:%S")
-        self.stream_handler.setFormatter(stream_formatter)
-        self.stream_handler.setLevel(logging.INFO)
-        logger.addHandler(self.stream_handler)
-        self.addLoggingHandler(self.stream_handler)
+        # self.stream_handler = RichHandler(rich_tracebacks=True, enable_link_path=True, show_time=False)
+        # stream_formatter = logging.Formatter("%(asctime)s.%(msecs)03d %(message)s", datefmt="%H:%M:%S")
+        # self.stream_handler.setFormatter(stream_formatter)
+        # self.stream_handler.setLevel(logging.INFO)
+        # logger.addHandler(self.stream_handler)
+        # self.addLoggingHandler(self.stream_handler)
 
-        self.addLoggingLevel("TRACE", logging.DEBUG - 5)
-        logger.setLevel(logging.TRACE)  # type: ignore # pylint: disable=no-member
+        # self.addLoggingLevel("TRACE", logging.DEBUG - 5)
+        # logger.setLevel(logging.TRACE)  # type: ignore # pylint: disable=no-member
 
         traceback.install()  # Enable exception tracebacks in rich logger
 
